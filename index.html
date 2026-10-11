@@ -394,6 +394,154 @@ html,body{
   .notice-box{margin-left:15px;margin-right:15px;}
   .understand{width:calc(100% - 30px);margin-left:15px;margin-right:15px;}
 }
+
+/* RESPONSIVE WIDTH FIX: keep the entire payment page visible on phones */
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+body {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+.header {
+  width: 100%;
+  min-width: 0;
+}
+.page {
+  width: 100%;
+  max-width: 691px;
+  min-width: 0;
+}
+.row > * {
+  min-width: 0;
+}
+.value {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.apps, .app {
+  min-width: 0;
+  max-width: 100%;
+}
+.app-logo {
+  max-width: 100%;
+  max-height: 72%;
+}
+@media (max-width: 700px) {
+  .page { padding-left: 11px; padding-right: 11px; }
+  .top { gap: 8px; }
+  .title { font-size: clamp(15px, 3.3vw, 19px); }
+  .timer { gap: 3px; font-size: 15px; }
+  .timer span { min-width: 29px; padding: 4px 3px; }
+  .row {
+    grid-template-columns: minmax(70px, 1fr) minmax(0, auto) 84px;
+    column-gap: 6px;
+  }
+  .label { font-size: clamp(15px, 3.2vw, 18px); }
+  .value {
+    font-size: clamp(15px, 3.3vw, 18px);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .copy {
+    min-width: 0;
+    width: 84px;
+    height: 52px;
+    padding: 0 5px;
+    font-size: 15px;
+  }
+  .apps { gap: 10px; }
+  .app { min-height: 0; height: auto; aspect-ratio: 2.15 / 1; border-radius: 20px; }
+  .phonepe-logo, .bhim-logo { width: 75%; }
+  .paytm-logo { width: 68%; }
+  .gpay-logo { width: 55%; }
+  .utr label { width: 76px; }
+  .utr-message { margin-left: 76px; }
+  .notice p { overflow-wrap: anywhere; }
+}
+@media (max-width: 360px) {
+  .row { grid-template-columns: minmax(58px, 1fr) minmax(0, auto) 70px; }
+  .copy { width: 70px; height: 46px; font-size: 13px; }
+  .value { font-size: 14px; }
+  .apps { gap: 7px; }
+  .app { border-radius: 15px; }
+}
+
+
+/* Bottom payment-method marks styled to match the supplied full-page screenshot */
+.payment-footer {
+  margin: 76px 0 0;
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+}
+.footer-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 42px;
+  white-space: nowrap;
+}
+.footer-logo {
+  display: block;
+  object-fit: contain;
+  height: 38px;
+  width: auto;
+  max-width: 24%;
+}
+.footer-paytm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #002970;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -.35px;
+}
+.footer-paytm .tm { color: #00baf2; }
+.footer-upi {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+  font-style: italic;
+  line-height: .9;
+}
+.footer-upi strong {
+  font-size: 34px;
+  letter-spacing: -2px;
+}
+.footer-upi small {
+  font-size: 4px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.footer-note {
+  margin: 37px 0 0;
+  color: #b8b8b8;
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 300;
+  overflow-wrap: anywhere;
+}
+@media(max-width: 520px) {
+  .payment-footer { margin-top: 76px; }
+  .footer-logos { gap: 6px; }
+  .footer-logo { height: 34px; }
+  .footer-upi strong { font-size: 31px; }
+  .footer-paytm { font-size: 9px; }
+  .footer-note { font-size: 11px; margin-top: 36px; }
+}
+
 </style>
 </head>
 
@@ -506,6 +654,23 @@ html,body{
     <p>1. <span class="red">One UPI ID</span> can only transfer money <span class="red">once.</span></p>
     <p>2. Don't change the <span class="red">payment amount.</span> Otherwise, the order cannot be closed.</p>
   </div>
+
+
+  <!-- Bottom logos and note from the supplied full-page layout -->
+  <footer class="payment-footer" aria-label="Payment methods">
+    <div class="footer-logos">
+      <img class="footer-logo" src="data:image/webp;base64,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" alt="PhonePe">
+      <img class="footer-logo" src="data:image/webp;base64,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" alt="Google Pay">
+      <div class="footer-paytm" aria-label="Paytm UPI">
+        <span><span>pay</span><span class="tm">tm</span></span>
+        <span>UPI</span>
+      </div>
+      <div class="footer-upi" aria-label="Unified Payments Interface">
+        <strong>UPI</strong><small>UNIFIED PAYMENTS INTERFACE</small>
+      </div>
+    </div>
+    <p class="footer-note">Dear customers: Please give priority to this channel to recharge! Support UPI account withdrawal! ICICI Bank guarantee! Safe and reliable!</p>
+  </footer>
 
 </div>
 
