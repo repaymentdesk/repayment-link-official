@@ -115,20 +115,38 @@ html,body{
 
 .apps{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:12px;
 }
 
 .app{
-  height:54px;
-  border:1px solid #ddd;
-  border-radius:9px;
+  aspect-ratio:2.42 / 1;
+  min-height:88px;
+  border:1px solid #e2e2e2;
+  border-radius:24px;
   display:flex;
   align-items:center;
   justify-content:center;
   background:#fff;
-  font-size:17px;
-  font-weight:700;
+  overflow:hidden;
+}
+
+.app:focus-visible{outline:2px solid #398ccc;outline-offset:3px;}
+
+.app-logo{
+  display:block;
+  height:auto;
+  object-fit:contain;
+}
+
+.phonepe-logo{ width:70%; }
+.paytm-logo{ width:60%; }
+.gpay-logo{ width:48%; }
+.bhim-logo{ width:68%; }
+
+@media (max-width:360px){
+  .apps{ gap:8px; }
+  .app{ border-radius:20px; min-height:78px; }
 }
 
 .utr-help{
@@ -208,9 +226,7 @@ html,body{
   color:#d83232;
 }
 
-
 /* COPY BAR */
-
 .toast{
   position:fixed;
   top:0;
@@ -231,9 +247,7 @@ html,body{
   transform:translateY(0);
 }
 
-
 /* PROCESSING MODAL */
-
 .processing{
   display:none;
   position:fixed;
@@ -278,14 +292,10 @@ html,body{
 }
 
 @keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
+  to{transform:rotate(360deg);}
 }
 
-
 /* IMPORTANT NOTICE */
-
 .important-notice{
   position:fixed;
   inset:0;
@@ -340,9 +350,7 @@ html,body{
   color:#273746;
 }
 
-.notice-row:last-child{
-  margin-bottom:0;
-}
+.notice-row:last-child{margin-bottom:0;}
 
 .notice-number{
   flex:none;
@@ -358,9 +366,7 @@ html,body{
   margin-top:2px;
 }
 
-.notice-row b{
-  color:#ef5350;
-}
+.notice-row b{color:#ef5350;}
 
 .understand{
   width:calc(100% - 36px);
@@ -375,656 +381,265 @@ html,body{
   cursor:pointer;
 }
 
-.understand:active{
-  transform:scale(.98);
-}
-
+.understand:active{transform:scale(.98);}
 
 @media(max-width:520px){
-
-  .page{
-    padding-left:11px;
-    padding-right:11px;
-  }
-
-  .row{
-    grid-template-columns:minmax(0,1fr) auto auto;
-  }
-
-  .copy{
-    min-width:108px;
-  }
-
-  .app{
-    height:54px;
-  }
-
-  .notice-modal{
-    max-width:100%;
-  }
-
-  .important-title{
-    font-size:23px;
-    padding-top:23px;
-  }
-
-  .notice-row{
-    font-size:17px;
-  }
-
-  .notice-box{
-    margin-left:15px;
-    margin-right:15px;
-  }
-
-  .understand{
-    width:calc(100% - 30px);
-    margin-left:15px;
-    margin-right:15px;
-  }
+  .page{padding-left:11px;padding-right:11px;}
+  .row{grid-template-columns:minmax(0,1fr) auto auto;}
+  .copy{min-width:108px;}
+  .app{height:110px;}
+  .notice-modal{max-width:100%;}
+  .important-title{font-size:23px;padding-top:23px;}
+  .notice-row{font-size:17px;}
+  .notice-box{margin-left:15px;margin-right:15px;}
+  .understand{width:calc(100% - 30px);margin-left:15px;margin-right:15px;}
 }
 </style>
 </head>
 
-
 <body>
 
-
 <!-- COPY TOAST -->
-
 <div id="toast" class="toast"></div>
 
-
 <!-- PROCESSING -->
-
 <div id="processing" class="processing">
-
   <div class="processing-box">
-
-    <div class="processing-title">
-      Please Wait
-    </div>
-
-    <div id="processingText" class="processing-text">
-      Processing submitted UTR...
-    </div>
-
+    <div class="processing-title">Please Wait</div>
+    <div id="processingText" class="processing-text">Processing submitted UTR...</div>
     <div class="loader"></div>
-
   </div>
-
 </div>
 
-
 <!-- IMPORTANT NOTICE -->
-
 <div id="importantNotice" class="important-notice">
-
   <div class="notice-modal">
-
     <div class="important-title">
       <span class="notice-icon">ⓘ</span>
       Important Notice
     </div>
 
-
     <div class="notice-box">
-
       <div class="notice-row">
-
         <span class="notice-number">1</span>
-
-        <div>
-          <b>One UPI ID</b>
-          can only be used for
-          <b>one payment.</b>
-        </div>
-
+        <div><b>One UPI ID</b> can only be used for <b>one payment.</b></div>
       </div>
 
-
       <div class="notice-row">
-
         <span class="notice-number">2</span>
-
-        <div>
-          Do <b>not change</b> the
-          <b>amount</b> otherwise, the order cannot be processed.
-        </div>
-
+        <div>Do <b>not change</b> the <b>amount</b> otherwise, the order cannot be processed.</div>
       </div>
-
 
       <div class="notice-row">
-
         <span class="notice-number">3</span>
-
-        <div>
-          Complete the payment
-          <b>before the order expires.</b>
-        </div>
-
+        <div>Complete the payment <b>before the order expires.</b></div>
       </div>
-
     </div>
 
-
-    <button
-      class="understand"
-      type="button"
-      onclick="closeNotice()"
-    >
-      I Understand
-    </button>
-
+    <button class="understand" type="button" onclick="closeNotice()">I Understand</button>
   </div>
-
 </div>
-
-
 
 <!-- HEADER -->
-
-<div class="header">
-  Payment
-</div>
-
-
+<div class="header">Payment</div>
 
 <div class="page">
 
-
   <!-- TIMER -->
-
   <div class="top">
-
-    <div class="title">
-      Order will be closed in:
-    </div>
-
+    <div class="title">Order will be closed in:</div>
     <div class="timer">
-
       <span id="min">09</span>
-
       <b>:</b>
-
       <span id="sec">59</span>
-
     </div>
-
   </div>
-
-
 
   <!-- AMOUNT -->
-
   <div class="row">
-
-    <div class="label">
-      Amount
-    </div>
-
-    <div id="amountValue" class="value">
-      ₹ 20400
-    </div>
-
-    <button
-      type="button"
-      class="copy"
-      onclick="copyAmount()"
-    >
-      COPY
-    </button>
-
+    <div class="label">Amount</div>
+    <div id="amountValue" class="value">₹ 20400</div>
+    <button type="button" class="copy" onclick="copyAmount()">COPY</button>
   </div>
-
-
 
   <!-- VPA -->
-
   <div class="row">
-
-    <div class="label">
-      VPA/UPI ID
-    </div>
-
-    <div id="vpaValue" class="value">
-      test***@demo
-    </div>
-
-    <button
-      type="button"
-      class="copy"
-      onclick="copyVPA()"
-    >
-      COPY
-    </button>
-
+    <div class="label">VPA/UPI ID</div>
+    <div id="vpaValue" class="value">test***@demo</div>
+    <button type="button" class="copy" onclick="copyVPA()">COPY</button>
   </div>
 
-
-
-  <!-- PAYMENT APPS -->
-
-  <div class="help">
-    ? How to transfer money ↗
-  </div>
-
+  <!-- PAYMENT APPS: logo images are embedded from the supplied reference; fully offline -->
+  <div class="help">? How to transfer money ↗</div>
 
   <div class="apps">
-
-    <div class="app">
-      PhonePe
-    </div>
-
-    <div class="app">
-      Paytm
-    </div>
-
-    <div class="app">
-      GPay
-    </div>
-
-    <div class="app">
-      BHIM
-    </div>
-
+    <a class="app" aria-label="Open PhonePe" href="intent://upi/#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.phonepe.app;end" onclick="openPaymentApp(event, 'com.phonepe.app', 'https://play.google.com/store/apps/details?id=com.phonepe.app')" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
+      <img class="app-logo phonepe-logo" src="data:image/webp;base64,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" alt="PhonePe">
+    </a>
+    <a class="app" aria-label="Open Paytm" href="intent://upi/#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dnet.one97.paytm;end" onclick="openPaymentApp(event, 'net.one97.paytm', 'https://play.google.com/store/apps/details?id=net.one97.paytm')" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
+      <img class="app-logo paytm-logo" src="data:image/webp;base64,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" alt="Paytm">
+    </a>
+    <a class="app" aria-label="Open Google Pay" href="intent://upi/#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.google.android.apps.nbu.paisa.user;end" onclick="openPaymentApp(event, 'com.google.android.apps.nbu.paisa.user', 'https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user')" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
+      <img class="app-logo gpay-logo" src="data:image/webp;base64,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" alt="Google Pay">
+    </a>
+    <a class="app" aria-label="Open BHIM" href="intent://upi/#Intent;scheme=upi;package=in.org.npci.upiapp;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Din.org.npci.upiapp;end" onclick="openPaymentApp(event, 'in.org.npci.upiapp', 'https://play.google.com/store/apps/details?id=in.org.npci.upiapp')" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
+      <img class="app-logo bhim-logo" src="data:image/webp;base64,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" alt="BHIM">
+    </a>
   </div>
-
-
 
   <!-- UTR -->
-
-  <div class="utr-help">
-    ↓ Fill the UTR numbers after you done payment
-  </div>
-
+  <div class="utr-help">↓ Fill the UTR numbers after you done payment</div>
 
   <div class="utr">
-
-    <label>
-      UTR
-    </label>
-
-    <input
-      id="utr"
-      type="text"
-      maxlength="12"
-      inputmode="numeric"
-      autocomplete="off"
-      placeholder="Input UTR number"
-      onfocus="showUTRMessage()"
-      oninput="digitsOnly()"
-    >
-
+    <label>UTR</label>
+    <input id="utr" type="text" maxlength="12" inputmode="numeric" autocomplete="off"
+      placeholder="Input UTR number" onfocus="showUTRMessage()" oninput="digitsOnly()">
   </div>
 
+  <div id="utrMessage" class="utr-message">input 12 digits</div>
 
-  <div id="utrMessage" class="utr-message">
-    input 12 digits
-  </div>
-
-
-
-  <button
-    id="submitBtn"
-    class="submit"
-    type="button"
-    onclick="submitUTR()"
-  >
-    Submit UTR
-  </button>
-
-
+  <button id="submitBtn" class="submit" type="button" onclick="submitUTR()">Submit UTR</button>
 
   <!-- NORMAL NOTICE -->
-
   <div class="notice">
-
-    <div class="notice-title">
-      Notice:
-    </div>
-
-    <p>
-      1.
-      <span class="red">One UPI ID</span>
-      can only transfer money
-      <span class="red">once.</span>
-    </p>
-
-    <p>
-      2. Don't change the
-      <span class="red">payment amount.</span>
-      Otherwise, the order cannot be closed.
-    </p>
-
+    <div class="notice-title">Notice:</div>
+    <p>1. <span class="red">One UPI ID</span> can only transfer money <span class="red">once.</span></p>
+    <p>2. Don't change the <span class="red">payment amount.</span> Otherwise, the order cannot be closed.</p>
   </div>
-
 
 </div>
 
-
-
 <script>
+/* Open installed payment app when supported; otherwise open its Play Store page. */
+function openPaymentApp(event, packageName, storeUrl){
+  event.preventDefault();
+  const intentUrl = "intent://upi/#Intent;scheme=upi;package=" + packageName + ";S.browser_fallback_url=" + encodeURIComponent(storeUrl) + ";end";
+  // Android Chrome handles intent URLs and falls back to the Play Store if the app is missing.
+  window.location.href = intentUrl;
+}
 
 /* URL PARAMETERS */
+const params = new URLSearchParams(window.location.search);
+const amount = params.get("amount") || "20400";
+const vpa = params.get("vpa") || "test-user@demo";
 
-const params =
-  new URLSearchParams(window.location.search);
-
-const amount =
-  params.get("amount") || "20400";
-
-const vpa =
-  params.get("vpa") || "test-user@demo";
-
-
-document.getElementById("amountValue").textContent =
-  "₹ " + amount;
-
-
+document.getElementById("amountValue").textContent = "₹ " + amount;
 
 /* MASK TEST VPA */
-
 function maskVPA(value){
-
-  const parts =
-    value.split("@");
-
-  if(parts.length !== 2){
-    return "***";
-  }
-
-  const name =
-    parts[0];
-
-  const domain =
-    parts[1];
-
-  if(name.length <= 3){
-
-    return name +
-           "***@" +
-           domain;
-
-  }
-
-  return name.substring(0,3) +
-         "***@" +
-         domain;
+  const parts = value.split("@");
+  if(parts.length !== 2){ return "***"; }
+  const name = parts[0];
+  const domain = parts[1];
+  if(name.length <= 3){ return name + "***@" + domain; }
+  return name.substring(0,3) + "***@" + domain;
 }
 
-
-document.getElementById("vpaValue").textContent =
-  maskVPA(vpa);
-
-
+document.getElementById("vpaValue").textContent = maskVPA(vpa);
 
 /* CLOSE IMPORTANT NOTICE */
-
 function closeNotice(){
-
-  const notice =
-    document.getElementById("importantNotice");
-
-  notice.style.display = "none";
+  document.getElementById("importantNotice").style.display = "none";
 }
-
-
 
 /* TOAST */
-
 function showToast(message){
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.textContent =
-    message;
-
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
   toast.classList.add("show");
-
   clearTimeout(window.toastTimer);
-
-  window.toastTimer =
-    setTimeout(function(){
-
-      toast.classList.remove("show");
-
-    },1800);
+  window.toastTimer = setTimeout(function(){
+    toast.classList.remove("show");
+  },1800);
 }
 
-
-
 /* COPY FALLBACK */
-
 function fallbackCopy(value){
-
-  const textarea =
-    document.createElement("textarea");
-
-  textarea.value =
-    value;
-
-  textarea.style.position =
-    "fixed";
-
-  textarea.style.left =
-    "-9999px";
-
-  textarea.style.top =
-    "0";
-
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.style.position = "fixed";
+  textarea.style.left = "-9999px";
+  textarea.style.top = "0";
   document.body.appendChild(textarea);
-
   textarea.focus();
   textarea.select();
   textarea.setSelectionRange(0,99999);
-
   try{
-
     document.execCommand("copy");
-
-    showToast(
-      "copy:" + value
-    );
-
+    showToast("copy:" + value);
   }catch(error){
-
-    showToast(
-      "Copy unavailable"
-    );
-
+    showToast("Copy unavailable");
   }
-
   document.body.removeChild(textarea);
 }
 
-
-
 /* COPY */
-
 function copyText(value){
-
-  if(
-    navigator.clipboard &&
-    window.isSecureContext
-  ){
-
-    navigator.clipboard
-      .writeText(value)
-
-      .then(function(){
-
-        showToast(
-          "copy:" + value
-        );
-
-      })
-
-      .catch(function(){
-
-        fallbackCopy(value);
-
-      });
-
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(value)
+      .then(function(){ showToast("copy:" + value); })
+      .catch(function(){ fallbackCopy(value); });
   }else{
-
     fallbackCopy(value);
-
   }
 }
 
-
-function copyAmount(){
-
-  copyText(amount);
-
-}
-
-
-function copyVPA(){
-
-  copyText(vpa);
-
-}
-
-
+function copyAmount(){ copyText(amount); }
+function copyVPA(){ copyText(vpa); }
 
 /* UTR */
-
 function showUTRMessage(){
-
-  document.getElementById(
-    "utrMessage"
-  ).style.display = "block";
-
+  document.getElementById("utrMessage").style.display = "block";
 }
-
 
 function digitsOnly(){
-
-  const input =
-    document.getElementById("utr");
-
-  input.value =
-    input.value
-      .replace(/\D/g,"")
-      .slice(0,12);
-
+  const input = document.getElementById("utr");
+  input.value = input.value.replace(/\D/g,"").slice(0,12);
 }
-
-
 
 /* SUBMIT TEST UTR */
-
 function submitUTR(){
-
-  const input =
-    document.getElementById("utr");
-
-  const message =
-    document.getElementById("utrMessage");
-
-  const button =
-    document.getElementById("submitBtn");
-
-  const value =
-    input.value.trim();
-
+  const input = document.getElementById("utr");
+  const message = document.getElementById("utrMessage");
+  const button = document.getElementById("submitBtn");
+  const value = input.value.trim();
 
   if(!/^\d{12}$/.test(value)){
-
-    message.textContent =
-      "input 12 digits";
-
-    message.style.display =
-      "block";
-
+    message.textContent = "input 12 digits";
+    message.style.display = "block";
     input.focus();
-
     return;
-
   }
 
+  message.style.display = "none";
+  button.disabled = true;
+  button.textContent = "Checking...";
 
-  message.style.display =
-    "none";
-
-  button.disabled =
-    true;
-
-  button.textContent =
-    "Checking...";
-
-
-  document.getElementById("processing")
-    .style.display = "flex";
-
-
-  document.getElementById("processingText")
-    .textContent =
-    "Processing submitted UTR...";
-
+  document.getElementById("processing").style.display = "flex";
+  document.getElementById("processingText").textContent = "Processing submitted test UTR...";
 
   setTimeout(function(){
-
-    document.getElementById("processingText")
-      .textContent =
-      "Verification pending. Please wait.";
-
-    button.disabled =
-      false;
-
-    button.textContent =
-      "Submit UTR";
-
+    document.getElementById("processingText").textContent = "Verification pending. Please wait.";
+    button.disabled = false;
+    button.textContent = "Submit UTR";
   },2500);
-
 }
-
-
 
 /* COUNTDOWN */
-
 let totalSeconds = 599;
 
-
 function updateCountdown(){
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
 
-  const minutes =
-    Math.floor(totalSeconds / 60);
+  document.getElementById("min").textContent = String(minutes).padStart(2,"0");
+  document.getElementById("sec").textContent = String(seconds).padStart(2,"0");
 
-  const seconds =
-    totalSeconds % 60;
-
-
-  document.getElementById("min")
-    .textContent =
-    String(minutes).padStart(2,"0");
-
-
-  document.getElementById("sec")
-    .textContent =
-    String(seconds).padStart(2,"0");
-
-
-  if(totalSeconds > 0){
-
-    totalSeconds--;
-
-  }
-
+  if(totalSeconds > 0){ totalSeconds--; }
 }
 
-
 updateCountdown();
-
-setInterval(
-  updateCountdown,
-  1000
-);
-
+setInterval(updateCountdown,1000);
 </script>
 
 </body>
